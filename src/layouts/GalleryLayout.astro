@@ -1,0 +1,187 @@
+---
+export const layout = "../layouts/BaseLayout.astro";
+
+import PageHeader from "../components/Sections/PageHeader.astro";
+import { formatDate } from "../utils/dateUtils";
+import { LightGallery } from "astro-lightgallery";
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: {
+    url?: string;
+    alt?: string;
+  };
+  date?: Date;
+  author?: string;
+  tags?: string[];
+  type?: "sermon" | "event" | "blog" | "ministry";
+}
+
+const {
+  title,
+  description,
+  image,
+  date,
+  author,
+  tags = [],
+  type = "blog",
+} = Astro.props;
+
+const seoType = "article";
+
+let pageTitle = title;
+if (type === "sermon") {
+  pageTitle = `Sermon: ${title}`;
+} else if (type === "event") {
+  pageTitle = `Event: ${title}`;
+} else if (type === "ministry") {
+  pageTitle = `${title} Ministry`;
+}
+
+const formattedDate = date ? formatDate(date) : null;
+
+const images = import.meta.glob("../assets/jubilee/*.webp");
+console.log(images);
+---
+
+<!-- SEO props diteruskan oleh BaseLayout --><!-- Header & Footer hanya dipanggil sekali oleh BaseLayout -->
+<PageHeader title={title} />
+
+<main class="py-8 px-10">
+  <div class="py-8">
+    <LightGallery
+      layout={{
+        adaptive: { zoom: 100 },
+        imgs: [
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_1.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_2.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_3.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_4.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_5.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_6.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_7.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_8.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_9.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_10.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_11.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_12.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_13.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_14.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_15.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_16.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_17.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_18.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_19.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_20.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_21.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_22.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_23.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_24.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_25.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_26.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_27.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_28.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_29.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_30.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_37.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_31.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_32.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_33.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_34.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_35.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_36.webp",
+          },
+          {
+            src: "/uploads/gallery/jubilee-06-12-2024/image_24.webp",
+          },
+        ],
+      }}
+      options={{
+        thumbnail: true,
+      }}
+      addPlugins={["zoom"]}
+    />
+  </div>
+
+  <div class="mx-auto max-w-3xl">
+    <article
+      class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 prose-a:text-primary-600 hover:prose-a:text-primary-700"
+    >
+      <slot />
+    </article>
+  </div>
+</main>

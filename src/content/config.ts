@@ -87,11 +87,29 @@ const siteInfoCollection = defineCollection({
   }),
 });
 
+const galleryCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    slug: z.string().optional(),
+    pubDate: z.date(),
+    description: z.string(), // Short description for previews
+    author: z.string().default("Church Staff"),
+    image: z.object({
+      url: z.string().startsWith('/uploads'),
+      alt: z.string()
+    }).optional(),
+    tags: z.array(z.string()).default(["general"]),
+    draft: z.boolean().default(false),
+  }),
+});
+
 export const collections = {
   staff: staffCollection,
   events: eventsCollection,
   sermons: sermonsCollection,
   ministries: ministriesCollection,
   blog: blogCollection,
+  gallery:galleryCollection,
   siteInfo: siteInfoCollection,
 };
